@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Práctica 16
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">
+    <div formGroupName="partido">
+      <ion-item>
+        <ion-label position="stacked" color="primary">Fecha del partido</ion-label>
+        <ion-input type="date" formControlName="FechaPartido" placeholder="dd/mm/aaaa"></ion-input>
+      </ion-item>
+    </div>
+    <div class="validation-errors">
+      <!--validación de errores para el DNI-->
+      <ng-container *ngFor="let validation of validation_messages.FechaPartido">
+        <div class="error-message" *ngIf="validations_form.get('partido').get('FechaPartido').hasError(validation.type) &&
+          (validations_form.get('partido').get('FechaPartido').dirty || validations_form.get('partido').get('FechaPartido').touched)">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-button color="primary" class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">
+      Enviar</ion-button>
+  </form>
+</ion-content>
